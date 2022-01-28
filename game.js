@@ -1,73 +1,5 @@
 "use strict";
 
-var x;
-var y;
-
-var towers = [];
-var enemies = []
-
-var i = 0;
-var TO_RADIANS = Math.PI/180; 
-var delta_x = 0;
-var delta_y = 0;
-
-var enemyPointIndex = 0;
-var lastEnemy = 0;
-var generatedEnemiesAmount = 0;
-
-var imgTag = new Image();
-
-function mouseMove(event) {
-	x = Math.trunc(event.clientX/64);
-	y = Math.trunc(event.clientY/64);
-}
-
-function doMouseDown(event) {
-    var tower = new Tower(x * 64 + 32, y * 64 + 32, '249');
-    towers.push(tower)
-}
-
-function drawSquare() {
-	ctx.beginPath();
-	ctx.lineWidth="1";
-	ctx.strokeStyle="black";
-	ctx.rect(64*x, 64*y, 64, 64);
-	ctx.stroke();
-}
-        
-var imgs = []
-
-function uniqueArray(array) {
-    var result = Array.from(new Set(array));
-    return result    
-  }
-
-function draw() {
-    if (i % 100 == 0) {
-        enemies.push(new Enemy(100, 500, enemyPoints))
-    }
-    ctx.clearRect(0, 0, 1800, 600);
-    loadMap();
-    drawEnemy();
-    drawTower();
-    drawSquare();
-    drawBullet();
-    drawMenu()
-    requestAnimationFrame(draw)
-    i++;
-}
-
-function drawAll() {
-    
-}
-
-function drawEnemy() {
-    enemies.forEach(enemy => {
-        enemy.draw();
-        enemy.update();
-    });
-}
-
 var bullet_current_x = 0;
 var bullet_current_y = 0
 
@@ -116,14 +48,6 @@ function drawBullet() {
     }
 }
 
-function getImageByName(name) {
-    for(var i = 0; i < imgs.length; i++) {
-        if (imgs[i].name == name) {
-            return imgs[i].image;
-        }
-    }
-    return null;
-}
 function drawMenu() {
     ctx.drawImage(getImageByName("180"), 350, 630);
     ctx.drawImage(getImageByName("249"), 350, 630-25);
@@ -134,5 +58,3 @@ function drawMenu() {
     ctx.drawImage(getImageByName("180"), 470, 630);
     ctx.drawImage(getImageByName("206"), 470, 630-15);
 }
-
-loadImages();
